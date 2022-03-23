@@ -21,6 +21,6 @@ type databaseConfig struct {
 }
 
 type Database struct {
-	Database string
+	DataType string
 	Pool     *sql.DB
 }

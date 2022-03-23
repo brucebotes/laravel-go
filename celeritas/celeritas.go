@@ -77,7 +77,7 @@ func (c *Celeritas) New(rootPath string) error {
 		}
 
 		c.DB = Database{
-			Database: os.Getenv("DATABASE_TYPE"),
+			DataType: os.Getenv("DATABASE_TYPE"),
 			Pool:     db,
 		}
 	}
