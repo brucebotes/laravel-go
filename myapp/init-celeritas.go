@@ -6,9 +6,9 @@ import (
 
 	"myapp/data"
 	"myapp/handlers"
+	"myapp/middleware"
 
 	"github.com/brucebotes/celeritas"
-	"github.com/docker/docker/api/server/middleware"
 )
 
 func initApplication() *application {

@@ -6,7 +6,6 @@ import (
 	"myapp/middleware"
 
 	"github.com/brucebotes/celeritas"
-	"github.com/docker/docker/api/server/middleware"
 )
 
 type application struct {

@@ -8,7 +8,6 @@ require (
 	github.com/CloudyKit/jet/v6 v6.1.0
 	github.com/DATA-DOG/go-sqlmock v1.5.0
 	github.com/brucebotes/celeritas v0.0.0-00010101000000-000000000000
-	github.com/docker/docker v20.10.9+incompatible
 	github.com/go-chi/chi/v5 v5.0.7
 	github.com/jackc/pgconn v1.11.0
 	github.com/jackc/pgx/v4 v4.15.0
@@ -22,12 +21,14 @@ require (
 	github.com/CloudyKit/fastprinter v0.0.0-20200109182630-33d98a066a53 // indirect
 	github.com/Microsoft/go-winio v0.5.1 // indirect
 	github.com/Nvveen/Gotty v0.0.0-20120604004816-cd527374f1e5 // indirect
+	github.com/alexedwards/scs/postgresstore v0.0.0-20220216073957-c252878bcf5a // indirect
 	github.com/alexedwards/scs/v2 v2.5.0 // indirect
 	github.com/cenkalti/backoff/v4 v4.1.2 // indirect
 	github.com/containerd/containerd v1.5.7 // indirect
 	github.com/containerd/continuity v0.1.0 // indirect
 	github.com/docker/cli v20.10.11+incompatible // indirect
 	github.com/docker/distribution v2.7.1+incompatible // indirect
+	github.com/docker/docker v20.10.9+incompatible // indirect
 	github.com/docker/go-connections v0.4.0 // indirect
 	github.com/docker/go-units v0.4.0 // indirect
 	github.com/go-sql-driver/mysql v1.6.0 // indirect
