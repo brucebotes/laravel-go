@@ -116,6 +116,7 @@ func (c *Celeritas) New(rootPath string) error {
 		SessionType:    c.config.sessionType,
 		DBPool:         c.DB.Pool,
 	}
+
 	c.Session = sess.InitSession()
 
 	var views = jet.NewSet(
