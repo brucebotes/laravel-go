@@ -19,18 +19,19 @@ import (
 const version = "1.0.0"
 
 type Celeritas struct {
-	AppName  string
-	Debug    bool
-	Version  string
-	ErrorLog *log.Logger
-	InfoLog  *log.Logger
-	RootPath string
-	Routes   *chi.Mux
-	Render   *render.Render
-	Session  *scs.SessionManager
-	DB       Database
-	JetViews *jet.Set
-	config   config
+	AppName       string
+	Debug         bool
+	Version       string
+	ErrorLog      *log.Logger
+	InfoLog       *log.Logger
+	RootPath      string
+	Routes        *chi.Mux
+	Render        *render.Render
+	Session       *scs.SessionManager
+	DB            Database
+	JetViews      *jet.Set
+	config        config
+	EncryptionKey string
 }
 
 type config struct {
@@ -116,7 +117,9 @@ func (c *Celeritas) New(rootPath string) error {
 		SessionType:    c.config.sessionType,
 		DBPool:         c.DB.Pool,
 	}
+
 	c.Session = sess.InitSession()
+	c.EncryptionKey = os.Getenv("KEY")
 
 	var views = jet.NewSet(
 		jet.NewOSFileSystemLoader(fmt.Sprintf("%s/views", rootPath)),

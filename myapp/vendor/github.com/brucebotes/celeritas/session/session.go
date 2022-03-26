@@ -7,6 +7,7 @@ import (
 	"strings"
 	"time"
 
+	"github.com/alexedwards/scs/mysqlstore"
 	"github.com/alexedwards/scs/postgresstore"
 	"github.com/alexedwards/scs/v2"
 )
@@ -51,6 +52,7 @@ func (c *Session) InitSession() *scs.SessionManager {
 	switch strings.ToLower(c.SessionType) {
 	case "redis":
 	case "mysql", "mariadb":
+		session.Store = mysqlstore.New(c.DBPool)
 	case "postgres", "postgresql":
 		session.Store = postgresstore.New(c.DBPool)
 	default:

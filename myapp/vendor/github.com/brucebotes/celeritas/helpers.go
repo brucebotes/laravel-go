@@ -1,7 +1,12 @@
 package celeritas
 
 import (
+	"crypto/aes"
+	"crypto/cipher"
 	"crypto/rand"
+	"encoding/base64"
+	"errors"
+	"io"
 	"os"
 )
 
@@ -46,4 +51,48 @@ func (c *Celeritas) CreateFileIfNotExists(path string) error {
 	}
 
 	return nil
+}
+
+type Encryption struct {
+	Key []byte
+}
+
+func (e *Encryption) Encrypt(text string) (string, error) {
+	plainText := []byte(text)
+
+	block, err := aes.NewCipher(e.Key)
+	if err != nil {
+		return "", nil
+	}
+
+	ciphertext := make([]byte, aes.BlockSize+len(plainText))
+	iv := ciphertext[:aes.BlockSize]
+	if _, err := io.ReadFull(rand.Reader, iv); err != nil {
+		return "", err
+	}
+
+	stream := cipher.NewCFBEncrypter(block, iv)
+	stream.XORKeyStream(ciphertext[aes.BlockSize:], plainText)
+
+	return base64.URLEncoding.EncodeToString(ciphertext), nil
+}
+
+func (e *Encryption) Decrypt(cryptoText string) (string, error) {
+	ciphertext, _ := base64.URLEncoding.DecodeString(cryptoText)
+	block, err := aes.NewCipher(e.Key)
+	if err != nil {
+		return "", err
+	}
+
+	if len(ciphertext) < aes.BlockSize {
+		return "", errors.New("invalid block size")
+	}
+
+	iv := ciphertext[:aes.BlockSize]
+	ciphertext = ciphertext[aes.BlockSize:]
+
+	stream := cipher.NewCFBDecrypter(block, iv)
+	stream.XORKeyStream(ciphertext, ciphertext)
+
+	return string(ciphertext), nil
 }
