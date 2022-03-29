@@ -11,6 +11,7 @@ require (
 	github.com/go-chi/chi/v5 v5.0.7
 	github.com/jackc/pgconn v1.11.0
 	github.com/jackc/pgx/v4 v4.15.0
+	github.com/justinas/nosurf v1.1.1
 	github.com/ory/dockertest/v3 v3.8.1
 	github.com/upper/db/v4 v4.5.0
 	golang.org/x/crypto v0.0.0-20211209193657-4570a0811e8b
@@ -23,6 +24,7 @@ require (
 	github.com/Nvveen/Gotty v0.0.0-20120604004816-cd527374f1e5 // indirect
 	github.com/alexedwards/scs/mysqlstore v0.0.0-20220216073957-c252878bcf5a // indirect
 	github.com/alexedwards/scs/postgresstore v0.0.0-20220216073957-c252878bcf5a // indirect
+	github.com/alexedwards/scs/redisstore v0.0.0-20220216073957-c252878bcf5a // indirect
 	github.com/alexedwards/scs/v2 v2.5.0 // indirect
 	github.com/asaskevich/govalidator v0.0.0-20210307081110-f21760c49a8d // indirect
 	github.com/cenkalti/backoff/v4 v4.1.2 // indirect

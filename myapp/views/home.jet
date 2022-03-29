@@ -29,6 +29,7 @@
         <a href="/json" class="list-group-item list-group-item-action" >JSON response</a>
         <a href="/xml" class="list-group-item list-group-item-action" >XML response</a>
         <a href="/download-file" class="list-group-item list-group-item-action" >File Download response</a>
+        <a href="/cache-test" class="list-group-item list-group-item-action" >Test Redis cache</a>
     </div>
 </div>
 {{end}}

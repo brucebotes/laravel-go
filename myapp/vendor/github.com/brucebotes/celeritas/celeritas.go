@@ -20,6 +20,8 @@ import (
 
 const version = "1.0.0"
 
+var myRedisCache *cache.RedisCache
+
 type Celeritas struct {
 	AppName       string
 	Debug         bool
@@ -87,11 +89,6 @@ func (c *Celeritas) New(rootPath string) error {
 		}
 	}
 
-	if os.Getenv("CACHE") == "redis" {
-		myRedisCache := c.createClientRedisCache()
-		c.Cache = myRedisCache
-	}
-
 	c.InfoLog = infoLog
 	c.ErrorLog = errorLog
 	c.Debug, _ = strconv.ParseBool(os.Getenv("DEBUG"))
@@ -121,6 +118,11 @@ func (c *Celeritas) New(rootPath string) error {
 		},
 	}
 
+	if os.Getenv("CACHE") == "redis" || os.Getenv("SESSION_TYPE") == "redis" {
+		myRedisCache = c.createClientRedisCache()
+		c.Cache = myRedisCache
+	}
+
 	// create session
 	sess := session.Session{
 		CookieLifeTime: c.config.cookie.lifetime,
@@ -129,7 +131,13 @@ func (c *Celeritas) New(rootPath string) error {
 		CookieSecure:   c.config.cookie.secure,
 		CookiePersist:  c.config.cookie.persist,
 		SessionType:    c.config.sessionType,
-		DBPool:         c.DB.Pool,
+	}
+
+	switch c.config.sessionType {
+	case "redis":
+		sess.RedisPool = myRedisCache.Conn
+	case "mysql", "postgres", "mariadb", "postgresql":
+		sess.DBPool = c.DB.Pool
 	}
 
 	c.Session = sess.InitSession()
@@ -137,7 +145,7 @@ func (c *Celeritas) New(rootPath string) error {
 
 	var views = jet.NewSet(
 		jet.NewOSFileSystemLoader(fmt.Sprintf("%s/views", rootPath)),
-		jet.InDevelopmentMode(),
+		//jet.InDevelopmentMode(),
 	)
 
 	c.JetViews = views
