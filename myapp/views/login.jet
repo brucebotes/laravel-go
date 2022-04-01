@@ -11,6 +11,12 @@ Login
 
 <hr>
 
+{{if .Flash != ""}}
+<div class="alert alert-info text-center">
+    {{.Flash}}
+</div>
+{{end}}
+
 <form class="d-block needs-validation" action="/users/login"
   method="post" id="login-form"
   autocomplete="off" novalidate=""
@@ -29,11 +35,15 @@ Login
       required="" autocomplete="password-new" >
   </div>
 
+  <div class="form-check form-switch">
+      <input class="form-check-input" type="checkbox" value="remember" id="remember" name="remember">
+      <label class="form-check-label" for="remember">Remember Me</label>
+  </div>
   <hr>
 
   <a href="javascript:void(0)" class="btn btn-primary" onclick="val()">Login</a>
   <p class="mt-2">
-    <small><a href="/users/forgate-password">Forgot password?</a></small>
+    <small><a href="/users/forgot-password">Forgot password?</a></small>
   </p>
 </form>
 
